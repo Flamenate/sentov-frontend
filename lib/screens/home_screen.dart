@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-  final double topPadding = 125.0;
+  final double topPadding = 50.0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,6 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                  alignment: Alignment.bottomCenter,
-                  width: MediaQuery.of(context).size.width,
-                  height: topPadding,
-                  child: Text("Sento Kaishi V: Staff App",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontFamily: "Montserrat",
-                          fontWeight: FontWeight.w700))),
               Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
