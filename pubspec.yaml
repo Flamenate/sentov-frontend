@@ -30,3 +30,6 @@ flutter:
         - family: Unbounded
           fonts:
               - asset: assets/fonts/Unbounded.ttf
+        - family: Montserrat
+          fonts:
+              - asset: assets/fonts/Montserrat.ttf
