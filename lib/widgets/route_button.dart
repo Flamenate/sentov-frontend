@@ -14,7 +14,7 @@ class RouteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double buttonWidth = MediaQuery.of(context).size.width / 2.25;
+    double buttonWidth = MediaQuery.of(context).size.width / 2.5;
     return ElevatedButton(
         onPressed: () => {context.go(route)},
         style: ElevatedButton.styleFrom(

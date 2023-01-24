@@ -50,12 +50,10 @@ class HomeScreen extends StatelessWidget {
                   text: "Register Shop Purchase"),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height / 16),
-            child: SizedBox.square(
-                dimension: MediaQuery.of(context).size.height / 4,
-                child: Image.asset("assets/images/logo_big.png")),
+          Expanded(
+            child: Image.asset("assets/images/logo_big.png",
+                width: MediaQuery.of(context).size.height / 4,
+                height: MediaQuery.of(context).size.height / 4),
           )
         ],
       ),
