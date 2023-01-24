@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:sento_staff/widgets/route_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,79 +7,56 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Image.asset(
-                'assets/logo_big.png',
-                opacity: AlwaysStoppedAnimation<double>(0.4),
-              ),
-            ),
+      appBar: AppBar(
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Image.asset(
+            "assets/images/logo_stripped.png",
+            fit: BoxFit.contain,
           ),
-          SizedBox.expand(
-            child: Column(
+        ),
+        backgroundColor: Color.fromARGB(255, 90, 38, 107),
+        centerTitle: true,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () => {context.go("/register")},
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      fixedSize: Size(300, 75),
-                      maximumSize: Size(400, 100),
-                      shape: StadiumBorder(),
-                      elevation: 20,
-                      backgroundColor: Colors.blue.shade800),
-                  child: Text("Register Player Name",
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () => {context.go("/session")},
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      fixedSize: Size(300, 75),
-                      maximumSize: Size(400, 100),
-                      shape: StadiumBorder(),
-                      elevation: 20,
-                      backgroundColor: Colors.cyan.shade900),
-                  child: Text("Register Game Session",
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () => {context.go("/profile")},
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      fixedSize: Size(300, 75),
-                      maximumSize: Size(400, 100),
-                      shape: StadiumBorder(),
-                      elevation: 20,
-                      backgroundColor: Colors.purple.shade700),
-                  child: Text("View Player Profile",
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () => {context.go("/shop")},
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      fixedSize: Size(300, 75),
-                      maximumSize: Size(400, 100),
-                      shape: StadiumBorder(),
-                      elevation: 20,
-                      backgroundColor: Colors.purple.shade900),
-                  child: Text("Register Shop Purchase",
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white)),
-                ),
+                RouteButton(
+                    route: "/register",
+                    iconData: Icons.post_add_rounded,
+                    text: "Register Player Name"),
+                RouteButton(
+                    route: "/session",
+                    iconData: Icons.gamepad_rounded,
+                    text: "Register Game Session"),
               ],
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              RouteButton(
+                  route: "/profile",
+                  iconData: Icons.person,
+                  text: "View Player Profile"),
+              RouteButton(
+                  route: "/shop",
+                  iconData: Icons.shop_2_rounded,
+                  text: "Register Shop Purchase"),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height / 16),
+            child: SizedBox.square(
+                dimension: MediaQuery.of(context).size.height / 4,
+                child: Image.asset("assets/images/logo_big.png")),
+          )
         ],
       ),
     );

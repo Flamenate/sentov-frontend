@@ -23,5 +23,10 @@ dev_dependencies:
 flutter:
     uses-material-design: true
     assets:
-        - assets/logo_big.png
-        - assets/logo_small.png
+        - assets/images/logo_stripped.png
+        - assets/images/logo_big.png
+
+    fonts:
+        - family: Unbounded
+          fonts:
+              - asset: assets/fonts/Unbounded.ttf

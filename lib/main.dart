@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
-      theme: ThemeData(useMaterial3: true, fontFamily: "Montserrat"),
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: "Montserrat",
+        scaffoldBackgroundColor: Color.fromARGB(255, 233, 219, 185),
+      ),
     );
   }
 }
