@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sento_staff/models/session.dart';
+import 'package:sento_staff/widgets/appbar.dart';
 
 import '../widgets/session_form.dart';
 import '../widgets/session_result.dart';
@@ -67,14 +68,7 @@ class _SessionScreenState extends State<SessionScreen> {
       );
     }
     return Scaffold(
-        appBar: AppBar(
-          leading:
-              BackButton(onPressed: () => context.go("/"), color: Colors.white),
-          title: Text("Register Game Session",
-              style: TextStyle(color: Colors.white)),
-          centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 90, 38, 107),
-        ),
+        appBar: defaultAppBar(context, title: "Register Game Session"),
         body: body);
   }
 }
