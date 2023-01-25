@@ -40,7 +40,10 @@ class _SessionScreenState extends State<SessionScreen> {
                   vertical: MediaQuery.of(context).size.height / 50),
               child: Text(
                 widget.gameTitle ?? "!TEST!",
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "Unbounded"),
               ),
             ),
           ),
