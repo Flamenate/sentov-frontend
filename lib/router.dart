@@ -13,9 +13,15 @@ final router = GoRouter(
       builder: (context, state) => HomeScreen(),
     ),
     GoRoute(
-      path: '/session',
-      builder: (context, state) => SessionScreen(),
-    ),
+        path: '/session',
+        builder: (context, state) => SessionScreen(),
+        routes: [
+          GoRoute(
+              path: ":id",
+              builder: (context, state) => SessionScreen(
+                    gameId: int.tryParse(state.params["id"] ?? "x"),
+                  ))
+        ]),
     GoRoute(
       path: '/shop',
       builder: (context, state) => HomeScreen(),

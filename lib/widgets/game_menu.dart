@@ -4,10 +4,10 @@ class GameMenu extends StatefulWidget {
   const GameMenu({super.key});
 
   @override
-  State<GameMenu> createState() => _GameMenuState();
+  State<GameMenu> createState() => GameMenuState();
 }
 
-class _GameMenuState extends State<GameMenu> {
+class GameMenuState extends State<GameMenu> {
   int selectedGameId = 0;
 
   @override
