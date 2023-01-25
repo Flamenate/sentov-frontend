@@ -20,9 +20,9 @@ class PlayerTable extends StatelessWidget {
         defaultColumnWidth: FlexColumnWidth(),
         columnWidths: {
           0: FlexColumnWidth(1),
-          1: FlexColumnWidth(4),
+          1: FlexColumnWidth(3.75),
           2: FlexColumnWidth(1.3),
-          3: FlexColumnWidth(1),
+          3: FlexColumnWidth(1.1),
           4: FlexColumnWidth(2),
         },
         children: [
