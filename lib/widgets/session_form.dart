@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/widgets/player_id_form_field.dart';
 
 class SessionForm extends StatefulWidget {
   const SessionForm({super.key, required this.onSubmit});
@@ -26,31 +27,7 @@ class _SessionFormState extends State<SessionForm> {
         child: Column(children: [
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.5,
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              maxLength: 4,
-              controller: _idFieldController,
-              validator: (String? value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    (int.tryParse(value) ?? 1001) > 1000) {
-                  return "ID must be less than 1001";
-                }
-                return null;
-              },
-              autocorrect: false,
-              enableSuggestions: false,
-              autofocus: false,
-              style: TextStyle(fontSize: 20.0),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color.fromARGB(132, 255, 255, 255),
-                counterText: "",
-                hintText: "Player ID",
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              ),
-            ),
+            child: PlayerIdFormField(controller: _idFieldController),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
