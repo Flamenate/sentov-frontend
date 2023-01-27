@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sento_staff/screens/home_screen.dart';
+import 'package:sento_staff/screens/register_screen.dart';
 import 'package:sento_staff/screens/session_screen.dart';
 
 final router = GoRouter(
@@ -10,7 +11,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/register',
-      builder: (context, state) => HomeScreen(),
+      builder: (context, state) => RegisterScreen(),
     ),
     GoRoute(
         path: '/session',
