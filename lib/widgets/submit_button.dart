@@ -10,7 +10,9 @@ class SubmitButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 90, 38, 107)),
+          backgroundColor: Color.fromARGB(255, 90, 38, 107),
+          foregroundColor: Colors.red,
+        ),
         child: Text(
           "Submit",
           style: TextStyle(
