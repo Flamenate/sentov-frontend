@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sento_staff/screens/home_screen.dart';
 import 'package:sento_staff/screens/register_screen.dart';
 import 'package:sento_staff/screens/session_screen.dart';
+import 'package:sento_staff/screens/shop_screen.dart';
 
 final router = GoRouter(
   routes: [
@@ -25,7 +26,7 @@ final router = GoRouter(
         ]),
     GoRoute(
       path: '/shop',
-      builder: (context, state) => HomeScreen(),
+      builder: (context, state) => ShopScreen(),
     ),
     GoRoute(
         path: '/profile',
