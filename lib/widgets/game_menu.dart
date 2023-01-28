@@ -12,16 +12,17 @@ class GameMenuState extends State<GameMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0), color: Colors.white54),
       child: DropdownButton<int>(
           elevation: 15,
           value: selectedGameId,
           dropdownColor: Color.fromARGB(255, 233, 233, 233),
           borderRadius: BorderRadius.circular(10.0),
           iconSize: 25.0,
-          underline:
-              Container(height: 1.5, color: Colors.deepPurpleAccent.shade700),
+          underline: SizedBox(),
           isExpanded: true,
           items: _buildGameList(),
           onChanged: (int? value) {

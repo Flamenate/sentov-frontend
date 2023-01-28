@@ -11,8 +11,9 @@ class GameSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GameMenu(key: menuKey),
+        Padding(padding: EdgeInsets.all(10.0), child: GameMenu(key: menuKey)),
         SubmitButton(
             onPressed: () =>
                 context.go("/session/${menuKey.currentState?.selectedGameId}"))
