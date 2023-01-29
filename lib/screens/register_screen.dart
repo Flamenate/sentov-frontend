@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sento_staff/widgets/submit_button.dart';
 
-import '../widgets/appbar.dart';
+import '../widgets/default_app_bar.dart';
 import '../widgets/player_registration_form.dart';
 
 final key = GlobalKey<PlayerRegistrationFormState>();

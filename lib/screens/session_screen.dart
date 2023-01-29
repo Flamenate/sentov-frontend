@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sento_staff/models/session.dart';
-import 'package:sento_staff/widgets/appbar.dart';
+import 'package:sento_staff/widgets/default_app_bar.dart';
 
 import '../widgets/session_form.dart';
 import '../widgets/session_result.dart';
