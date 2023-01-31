@@ -14,4 +14,13 @@ class Session {
     required this.result,
     required this.timestamp,
   });
+
+  factory Session.fromJson(Map<String, dynamic> json) {
+    return Session(
+        id: json["id"],
+        gameId: json["gameId"],
+        playerId: json["playerId"],
+        result: json["result"],
+        timestamp: json["timestamp"]);
+  }
 }

@@ -12,4 +12,13 @@ class Player {
     required this.level,
     required this.balance,
   });
+
+  factory Player.fromJson(Map<String, dynamic> json) {
+    return Player(
+        id: json["id"],
+        name: json["name"],
+        xp: json["xp"],
+        level: json["level"],
+        balance: json["balance"]);
+  }
 }

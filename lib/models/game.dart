@@ -12,4 +12,13 @@ class Game {
     required this.xpReward,
     required this.balanceReward,
   });
+
+  factory Game.fromJson(Map<String, dynamic> json) {
+    return Game(
+        id: json["id"],
+        title: json["title"],
+        description: json["description"],
+        xpReward: json["xpReward"],
+        balanceReward: json["balanceReward"]);
+  }
 }
