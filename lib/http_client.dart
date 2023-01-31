@@ -27,3 +27,5 @@ class JsonError extends Error {
     }
   }
 }
+
+final HTTPClient httpClient = HTTPClient();
