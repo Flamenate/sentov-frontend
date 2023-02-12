@@ -23,6 +23,7 @@ final router = GoRouter(
               path: ":id",
               builder: (context, state) => SessionScreen(
                     gameId: int.tryParse(state.params["id"] ?? "x"),
+                    gameTitle: state.queryParams["title"],
                   ))
         ]),
     GoRoute(

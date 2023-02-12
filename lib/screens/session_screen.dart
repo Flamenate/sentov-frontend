@@ -39,10 +39,10 @@ class _SessionScreenState extends State<SessionScreen> {
               padding: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height / 50),
               child: Text(
-                widget.gameTitle ?? "!TEST!",
+                widget.gameTitle!,
                 style: TextStyle(
                     fontSize: 20.0,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                     fontFamily: "Unbounded"),
               ),
             ),

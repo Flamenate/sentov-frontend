@@ -14,9 +14,11 @@ class GameSelectionScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(padding: EdgeInsets.all(10.0), child: GameMenu(key: menuKey)),
-        SubmitButton(
-            onPressed: () =>
-                context.go("/session/${menuKey.currentState?.selectedGameId}"))
+        SubmitButton(onPressed: (() {
+          final int id = menuKey.currentState?.selectedGameId as int;
+          context.go(
+              "/session/$id?title=${menuKey.currentState?.games[id + 1].title}");
+        }))
       ],
     );
   }

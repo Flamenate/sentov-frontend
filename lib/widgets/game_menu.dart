@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/models/game.dart';
+import 'package:sento_staff/services/game_service.dart';
 
 class GameMenu extends StatefulWidget {
   const GameMenu({super.key});
@@ -8,7 +10,22 @@ class GameMenu extends StatefulWidget {
 }
 
 class GameMenuState extends State<GameMenu> {
-  int selectedGameId = 0;
+  int selectedGameId = -1;
+  List<Game> games = [
+    Game.placeholder(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    GameService().getAllGames().then(
+      (retrievedGames) {
+        setState(() {
+          games.addAll(retrievedGames);
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +41,9 @@ class GameMenuState extends State<GameMenu> {
           iconSize: 25.0,
           underline: SizedBox(),
           isExpanded: true,
-          items: _buildGameList(),
+          items: games
+              .map(((g) => DropdownMenuItem(value: g.id, child: Text(g.title))))
+              .toList(),
           onChanged: (int? value) {
             setState(() {
               selectedGameId = value!;
@@ -32,13 +51,4 @@ class GameMenuState extends State<GameMenu> {
           }),
     );
   }
-}
-
-List<DropdownMenuItem<int>> _buildGameList() {
-  return [
-    DropdownMenuItem(value: 0, child: Text("Rocket League")),
-    DropdownMenuItem(value: 1, child: Text("ZEBI GAME")),
-    DropdownMenuItem(value: 2, child: Text("KTYB")),
-    DropdownMenuItem(value: 3, child: Text("3ASBA"))
-  ];
 }
