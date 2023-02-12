@@ -18,7 +18,12 @@ class Player {
         id: json["id"],
         name: json["name"],
         xp: json["xp"],
-        level: json["level"],
+        level: 6,
         balance: json["balance"]);
+  }
+
+  factory Player.placeholder() {
+    return Player(
+        id: -1, name: "Flen Ben Foulen", xp: -1000, level: -1, balance: -5000);
   }
 }
