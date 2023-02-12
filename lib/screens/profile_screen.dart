@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sento_staff/models/player.dart';
+import 'package:sento_staff/services/player_service.dart';
 import 'package:sento_staff/widgets/default_app_bar.dart';
 import 'package:sento_staff/widgets/player_id_form_field.dart';
 import 'package:sento_staff/widgets/submit_button.dart';
@@ -25,11 +26,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
       TextStyle(fontSize: 18.0, color: Colors.black);
   final TextStyle _subcontentStyle =
       TextStyle(color: Colors.black54, fontSize: 13.0);
+  Player _player = Player.placeholder();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.id != null) {
+      PlayerService().getPlayerById(widget.id!).then(((player) {
+        setState(() {
+          _player = player;
+        });
+      }));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget body;
-    if (widget.id == null) {
+    if (_player.id == -1) {
       body = Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -51,10 +65,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       );
     } else {
-      late Player player;
-      player = Player(
-          id: 666, name: "Haythem Frikha", xp: 50670, level: 8, balance: 10400);
-      //TODO: GET Player
       body = Column(
         children: [
           SizedBox(
@@ -64,19 +74,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Center(
                     child: Text(
-                        player.name.isNotEmpty ? player.name : "UNNAMED",
+                        _player.name.isNotEmpty ? _player.name : "UNNAMED",
                         style: TextStyle(
                             fontFamily: "Unbounded",
                             fontSize: 25.0,
                             color: Color.fromARGB(255, 90, 38, 107))),
                   ),
-                  Text("ID: ${player.id}", style: _subcontentStyle),
+                  Text("ID: ${_player.id}", style: _subcontentStyle),
                 ],
               )),
           Column(
             children: [
               Text("Level:", style: _subtitleStyle),
-              Text(player.level.toString(), style: _contentStyle),
+              Text(_player.level.toString(), style: _contentStyle),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
@@ -90,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundColor: Color.fromARGB(255, 90, 38, 107),
                       ),
                     ),
-                    Text("XP: ${player.xp} / 70,000", style: _subcontentStyle)
+                    Text("XP: ${_player.xp} / 70,000", style: _subcontentStyle)
                   ],
                 ),
               ),
@@ -103,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Text("Balance:", style: _subtitleStyle),
                 Text(
-                    "\$${NumberFormat.currency(symbol: '', decimalDigits: 0).format(player.balance)}",
+                    "\$${NumberFormat.currency(symbol: '', decimalDigits: 0).format(_player.balance)}",
                     style: _contentStyle),
               ],
             ),
@@ -112,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
     return Scaffold(
-        appBar: defaultAppBar(context, title: "View Player Profile"),
+        appBar: defaultAppBar(context, title: "View _Player Profile"),
         body: body);
   }
 }
