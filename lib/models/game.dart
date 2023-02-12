@@ -21,4 +21,13 @@ class Game {
         xpReward: json["xpReward"],
         balanceReward: json["balanceReward"]);
   }
+
+  factory Game.placeholder() {
+    return Game(
+        id: -1,
+        title: "Select a game...",
+        description: "",
+        xpReward: 0,
+        balanceReward: 0);
+  }
 }
