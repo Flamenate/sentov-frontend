@@ -56,7 +56,7 @@ class QuestScreenState extends State<QuestScreen> {
       );
     }
     return Scaffold(
-        appBar: defaultAppBar(context, title: "Register Game Session"),
+        appBar: defaultAppBar(context, title: "Register Quest Completion"),
         body: body);
   }
 }
