@@ -26,9 +26,8 @@ class PlayerService {
   Future<Player> getPlayerById(int id) async {
     final http.Response response = await httpClient
         .get(Uri.parse("${dotenv.env['BACKEND_URL']}/player/$id"));
-    final json = jsonDecode(response.body);
-    if (json.error) return Player.placeholder();
-    return Player.fromJson(json);
+    if (response.statusCode >= 400) return Player.placeholder();
+    return Player.fromJson(jsonDecode(response.body));
   }
 
   Future<Player> patchPlayerName(int id, String name) async {
