@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'player_id_form_field.dart';
+import 'package:sento_staff/widgets/player_id_form_field.dart';
 
 class PlayerRegistrationForm extends StatefulWidget {
   const PlayerRegistrationForm(

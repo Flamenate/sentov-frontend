@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-
-import '../http_client.dart';
-import '../models/player.dart';
+import 'package:sento_staff/http_client.dart';
+import 'package:sento_staff/models/player.dart';
 
 class PlayerService {
   static final PlayerService _instance = PlayerService._internal();

@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-
-import '../http_client.dart';
-import '../models/activity.dart';
+import 'package:sento_staff/http_client.dart';
+import 'package:sento_staff/models/activity.dart';
 
 class ActivityService {
   static final ActivityService _instance = ActivityService._internal();
