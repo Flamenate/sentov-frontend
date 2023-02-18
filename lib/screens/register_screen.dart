@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/services/player_service.dart';
 import 'package:sento_staff/widgets/submit_button.dart';
 
 import '../widgets/default_app_bar.dart';
@@ -30,15 +31,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 nameController: nameFieldController),
           ),
           SubmitButton(onPressed: () {
+            idFieldController.clear();
+            nameFieldController.clear();
             if (!key.currentState!.formKey.currentState!.validate()) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Your inputs are invalid.")),
               );
-              idFieldController.clear();
-              nameFieldController.clear();
               return;
             }
-            //TODO: PATCH player
+            PlayerService()
+                .patchPlayerName(
+                    int.parse(idFieldController.text), nameFieldController.text)
+                .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text(
+                              "Player (${value.id})'s name was updated to ${value.name}.")),
+                    ));
           })
         ]));
   }

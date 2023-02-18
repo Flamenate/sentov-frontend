@@ -13,16 +13,11 @@ class SessionScreen extends StatefulWidget {
   final String? gameTitle;
 
   @override
-  State<SessionScreen> createState() => _SessionScreenState();
+  State<SessionScreen> createState() => SessionScreenState();
 }
 
-class _SessionScreenState extends State<SessionScreen> {
-  Session session = Session(
-      id: -1,
-      gameId: -1,
-      playerId: -1,
-      result: Result.loss,
-      timestamp: DateTime.fromMillisecondsSinceEpoch(0));
+class SessionScreenState extends State<SessionScreen> {
+  Session currentSession = Session.placeholder();
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +43,13 @@ class _SessionScreenState extends State<SessionScreen> {
             ),
           ),
           SessionForm(
-            onSubmit: (context) {
-              setState(() {
-                session = Session(
-                    id: 1500,
-                    gameId: 0,
-                    playerId: 666,
-                    result: Result.loss,
-                    timestamp: DateTime.now());
-              });
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Processing Data')),
-              );
-            },
-          ),
-          SessionResult(session: session),
+              activityId: widget.gameId!,
+              updateParentState: (Session newSession) {
+                setState(() {
+                  currentSession = newSession;
+                });
+              }),
+          SessionResult(session: currentSession),
         ],
       );
     }

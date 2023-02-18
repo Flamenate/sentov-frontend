@@ -1,15 +1,13 @@
-enum Result { loss, win, draw }
-
 class Session {
   final int id;
-  final int gameId;
+  final int activityId;
   final int playerId;
-  final Result result;
+  final int result;
   final DateTime timestamp;
 
   const Session({
     required this.id,
-    required this.gameId,
+    required this.activityId,
     required this.playerId,
     required this.result,
     required this.timestamp,
@@ -18,9 +16,18 @@ class Session {
   factory Session.fromJson(Map<String, dynamic> json) {
     return Session(
         id: json["id"],
-        gameId: json["gameId"],
+        activityId: json["activityId"],
         playerId: json["playerId"],
         result: json["result"],
-        timestamp: json["timestamp"]);
+        timestamp: DateTime.parse(json["timestamp"]));
+  }
+
+  factory Session.placeholder() {
+    return Session(
+        id: -1,
+        activityId: -1,
+        playerId: -1,
+        result: -1,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(0));
   }
 }

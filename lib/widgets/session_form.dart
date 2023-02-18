@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/models/session.dart';
+import 'package:sento_staff/screens/session_screen.dart';
+import 'package:sento_staff/services/session_service.dart';
 import 'package:sento_staff/widgets/player_id_form_field.dart';
 
 class SessionForm extends StatefulWidget {
-  const SessionForm({super.key, required this.onSubmit});
+  const SessionForm(
+      {super.key, required this.activityId, required this.updateParentState});
 
-  final void Function(BuildContext context) onSubmit;
+  final int activityId;
+  final void Function(Session) updateParentState;
 
   @override
-  State<SessionForm> createState() => _SessionFormState();
+  State<SessionForm> createState() => SessionFormState();
 }
 
-class _SessionFormState extends State<SessionForm> {
-  final TextEditingController _idFieldController = TextEditingController();
+class SessionFormState extends State<SessionForm> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void dispose() {
-    _idFieldController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -27,7 +32,7 @@ class _SessionFormState extends State<SessionForm> {
         child: Column(children: [
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.5,
-            child: PlayerIdFormField(controller: _idFieldController),
+            child: PlayerIdFormField(controller: _controller),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -37,7 +42,7 @@ class _SessionFormState extends State<SessionForm> {
                 ElevatedButton(
                     onPressed: () => {
                           if (_formKey.currentState!.validate())
-                            {widget.onSubmit(context)}
+                            {_submitForm(context, 1)}
                         },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
@@ -50,7 +55,7 @@ class _SessionFormState extends State<SessionForm> {
                 ElevatedButton(
                     onPressed: () => {
                           if (_formKey.currentState!.validate())
-                            {widget.onSubmit(context)}
+                            {_submitForm(context, 2)}
                         },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.yellow.shade500,
@@ -63,7 +68,7 @@ class _SessionFormState extends State<SessionForm> {
                 ElevatedButton(
                     onPressed: () => {
                           if (_formKey.currentState!.validate())
-                            {widget.onSubmit(context)}
+                            {_submitForm(context, 0)}
                         },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red.shade700,
@@ -77,5 +82,18 @@ class _SessionFormState extends State<SessionForm> {
             ),
           )
         ]));
+  }
+
+  void _submitForm(BuildContext context, int result) {
+    ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context);
+    scaffoldMessenger.showSnackBar(
+      const SnackBar(content: Text('Processing Session...')),
+    );
+    SessionService()
+        .postSession(int.parse(_controller.text), widget.activityId, result)
+        .then((Session newSession) => setState(() {
+              widget.updateParentState(newSession);
+              scaffoldMessenger.clearSnackBars();
+            }));
   }
 }

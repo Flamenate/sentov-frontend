@@ -16,8 +16,8 @@ class GameService {
   GameService._internal();
 
   Future<List<Game>> getAllGames() async {
-    final http.Response games =
-        await httpClient.get(Uri.parse("${dotenv.env['BACKEND_URL']}/games"));
+    final http.Response games = await httpClient
+        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/activities"));
     return jsonDecode(games.body)
         .map<Game>((gameData) => Game.fromJson(gameData))
         .toList();
@@ -25,7 +25,7 @@ class GameService {
 
   Future<Game> getGameById(int id) async {
     final http.Response game = await httpClient
-        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/game/$id"));
+        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/activity/$id"));
     return Game.fromJson(jsonDecode(game.body));
   }
 }

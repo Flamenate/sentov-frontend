@@ -17,7 +17,7 @@ class GameSelectionScreen extends StatelessWidget {
         SubmitButton(onPressed: (() {
           final int id = menuKey.currentState?.selectedGameId as int;
           context.go(
-              "/session/$id?title=${menuKey.currentState?.games[id + 1].title}");
+              "/session/$id?title=${menuKey.currentState?.games[id].title}");
         }))
       ],
     );
