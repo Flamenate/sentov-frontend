@@ -37,7 +37,7 @@ class RouteButton extends StatelessWidget {
                 style: TextStyle(
                     color: Color.fromARGB(255, 253, 192, 107),
                     fontFamily: "Unbounded",
-                    fontSize: 15))
+                    fontSize: 14))
           ],
         ));
   }
