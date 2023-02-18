@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/models/item.dart';
+import 'package:sento_staff/services/item_service.dart';
 
 class ItemMenu extends StatefulWidget {
   const ItemMenu({super.key});
@@ -9,6 +11,19 @@ class ItemMenu extends StatefulWidget {
 
 class ItemMenuState extends State<ItemMenu> {
   int selectedItemId = -1;
+  List<Item> items = [Item.placeholder()];
+
+  @override
+  void initState() {
+    super.initState();
+    ItemService().getAll().then(
+      (retrievedItems) {
+        setState(() {
+          items.addAll(retrievedItems);
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,10 @@ class ItemMenuState extends State<ItemMenu> {
         iconSize: 25.0,
         underline: SizedBox(),
         isExpanded: true,
-        items: _buildItemList(),
+        items: items
+            .map(((item) =>
+                DropdownMenuItem(value: item.id, child: Text(item.name))))
+            .toList(),
         onChanged: (int? value) {
           setState(() {
             selectedItemId = value!;
@@ -33,16 +51,5 @@ class ItemMenuState extends State<ItemMenu> {
         style: TextStyle(fontSize: 20.0, color: Colors.black),
       ),
     );
-  }
-
-  List<DropdownMenuItem<int>> _buildItemList() {
-    return [
-      DropdownMenuItem(value: -1, child: Text("Pick an item...")),
-      DropdownMenuItem(value: 0, child: Text("poster angela white")),
-      DropdownMenuItem(value: 1, child: Text("nami (mouch mta3 one piece)")),
-      DropdownMenuItem(value: 2, child: Text("iniesta")),
-      DropdownMenuItem(value: 3, child: Text("maryoul andrew tate")),
-      DropdownMenuItem(value: 4, child: Text("casquette lefri9i"))
-    ];
   }
 }

@@ -1,10 +1,8 @@
-enum Category { clothes, accessories, posters }
-
 class Item {
   final int id;
   final String name;
   final int price;
-  final Category category;
+  final int category;
 
   const Item({
     required this.id,
@@ -19,5 +17,9 @@ class Item {
         name: json["name"],
         price: json["price"],
         category: json["category"]);
+  }
+
+  factory Item.placeholder() {
+    return Item(id: -1, name: "Pick an item...", price: -1, category: -1);
   }
 }
