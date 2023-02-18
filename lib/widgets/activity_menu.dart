@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:sento_staff/models/game.dart';
-import 'package:sento_staff/services/game_service.dart';
+import 'package:sento_staff/models/activity.dart';
+import 'package:sento_staff/services/activity_service.dart';
 
-class GameMenu extends StatefulWidget {
-  const GameMenu({super.key});
+class ActivityMenu extends StatefulWidget {
+  const ActivityMenu({super.key, required this.type});
+
+  final String type;
 
   @override
-  State<GameMenu> createState() => GameMenuState();
+  State<ActivityMenu> createState() => ActivityMenuState();
 }
 
-class GameMenuState extends State<GameMenu> {
-  int selectedGameId = -1;
-  List<Game> games = [
-    Game.placeholder(),
+class ActivityMenuState extends State<ActivityMenu> {
+  int selectedActivityId = -1;
+  List<Activity> activities = [
+    Activity.placeholder(),
   ];
 
   @override
   void initState() {
     super.initState();
-    GameService().getAllGames().then(
-      (retrievedGames) {
+    ActivityService().getAllByType(widget.type).then(
+      (retrievedActivities) {
         setState(() {
-          games.addAll(retrievedGames);
+          activities.addAll(retrievedActivities);
         });
       },
     );
@@ -35,18 +37,19 @@ class GameMenuState extends State<GameMenu> {
           borderRadius: BorderRadius.circular(10.0), color: Colors.white54),
       child: DropdownButton<int>(
           elevation: 15,
-          value: selectedGameId,
+          value: selectedActivityId,
           dropdownColor: Color.fromARGB(255, 233, 233, 233),
           borderRadius: BorderRadius.circular(10.0),
           iconSize: 25.0,
           underline: SizedBox(),
           isExpanded: true,
-          items: games
-              .map(((g) => DropdownMenuItem(value: g.id, child: Text(g.title))))
+          items: activities
+              .map(((activity) => DropdownMenuItem(
+                  value: activity.id, child: Text(activity.title))))
               .toList(),
           onChanged: (int? value) {
             setState(() {
-              selectedGameId = value!;
+              selectedActivityId = value!;
             });
           }),
     );

@@ -5,18 +5,18 @@ import 'package:sento_staff/services/player_service.dart';
 import 'package:sento_staff/services/session_service.dart';
 import 'package:sento_staff/widgets/player_id_form_field.dart';
 
-class SessionForm extends StatefulWidget {
-  const SessionForm(
-      {super.key, required this.activityId, required this.updateParentState});
+class GameSessionForm extends StatefulWidget {
+  const GameSessionForm(
+      {super.key, required this.gameId, required this.updateParentState});
 
-  final int activityId;
+  final int gameId;
   final void Function(Session, Player) updateParentState;
 
   @override
-  State<SessionForm> createState() => SessionFormState();
+  State<GameSessionForm> createState() => GameSessionFormState();
 }
 
-class SessionFormState extends State<SessionForm> {
+class GameSessionFormState extends State<GameSessionForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
 
@@ -30,6 +30,7 @@ class SessionFormState extends State<SessionForm> {
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.5,
@@ -91,7 +92,7 @@ class SessionFormState extends State<SessionForm> {
       const SnackBar(content: Text('Processing Session...')),
     );
     SessionService()
-        .postSession(int.parse(_controller.text), widget.activityId, result)
+        .postSession(int.parse(_controller.text), widget.gameId, result)
         .then((Session newSession) => setState(() {
               PlayerService()
                   .getPlayerById(newSession.playerId)

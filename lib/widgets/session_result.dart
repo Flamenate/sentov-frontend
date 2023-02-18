@@ -20,7 +20,7 @@ class SessionResult extends StatelessWidget {
       children: [
         Column(
           children: [
-            Text("Last Registered Session", style: TextStyle(fontSize: 20.0)),
+            Text("Last Registered Quest", style: TextStyle(fontSize: 20.0)),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Table(
