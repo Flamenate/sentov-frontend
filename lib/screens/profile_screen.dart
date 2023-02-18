@@ -122,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
     return Scaffold(
-        appBar: defaultAppBar(context, title: "View _Player Profile"),
+        appBar: defaultAppBar(context, title: "View Player Profile"),
         body: body);
   }
 }
