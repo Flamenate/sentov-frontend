@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                     iconData: Icons.gamepad_rounded,
                     text: "Register Game Session"),
                 RouteButton(
-                    route: "/quests",
+                    route: "/quest",
                     iconData: Icons.bookmarks_sharp,
                     text: "Register Quest Completion"),
               ],

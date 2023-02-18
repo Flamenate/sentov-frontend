@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:sento_staff/screens/home_screen.dart';
 import 'package:sento_staff/screens/profile_screen.dart';
+import 'package:sento_staff/screens/quest_screen.dart';
 import 'package:sento_staff/screens/register_screen.dart';
 import 'package:sento_staff/screens/session_screen.dart';
 import 'package:sento_staff/screens/shop_screen.dart';
@@ -39,6 +40,17 @@ final router = GoRouter(
             builder: (context, state) =>
                 ProfileScreen(id: int.tryParse(state.params["id"] ?? "x")),
           ),
+        ]),
+    GoRoute(
+        path: '/quest',
+        builder: (context, state) => QuestScreen(),
+        routes: [
+          GoRoute(
+              path: ":id",
+              builder: (context, state) => QuestScreen(
+                    questId: int.tryParse(state.params["id"] ?? "x"),
+                    questTitle: state.queryParams["title"],
+                  ))
         ]),
   ],
 );
