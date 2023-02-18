@@ -4,9 +4,10 @@ import 'package:sento_staff/models/session.dart';
 import 'package:sento_staff/widgets/player_table.dart';
 
 class SessionResult extends StatelessWidget {
-  const SessionResult({super.key, required this.session});
+  const SessionResult({super.key, required this.session, required this.player});
 
   final Session session;
+  final Player player;
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +75,7 @@ class SessionResult extends StatelessWidget {
         Text("Related Player", style: TextStyle(fontSize: 20.0)),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: PlayerTable(
-              player: Player(
-                  id: 552,
-                  name: "Flamenate",
-                  xp: 50100,
-                  level: 8,
-                  balance: 32600)),
+          child: PlayerTable(player: player),
         )
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/models/player.dart';
 import 'package:sento_staff/models/session.dart';
 import 'package:sento_staff/widgets/default_app_bar.dart';
 
@@ -18,6 +19,7 @@ class SessionScreen extends StatefulWidget {
 
 class SessionScreenState extends State<SessionScreen> {
   Session currentSession = Session.placeholder();
+  Player currentPlayer = Player.placeholder();
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +46,13 @@ class SessionScreenState extends State<SessionScreen> {
           ),
           SessionForm(
               activityId: widget.gameId!,
-              updateParentState: (Session newSession) {
+              updateParentState: (Session newSession, Player newPlayer) {
                 setState(() {
                   currentSession = newSession;
+                  currentPlayer = newPlayer;
                 });
               }),
-          SessionResult(session: currentSession),
+          SessionResult(session: currentSession, player: currentPlayer),
         ],
       );
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/models/player.dart';
 import 'package:sento_staff/models/session.dart';
-import 'package:sento_staff/screens/session_screen.dart';
+import 'package:sento_staff/services/player_service.dart';
 import 'package:sento_staff/services/session_service.dart';
 import 'package:sento_staff/widgets/player_id_form_field.dart';
 
@@ -9,7 +10,7 @@ class SessionForm extends StatefulWidget {
       {super.key, required this.activityId, required this.updateParentState});
 
   final int activityId;
-  final void Function(Session) updateParentState;
+  final void Function(Session, Player) updateParentState;
 
   @override
   State<SessionForm> createState() => SessionFormState();
@@ -92,8 +93,12 @@ class SessionFormState extends State<SessionForm> {
     SessionService()
         .postSession(int.parse(_controller.text), widget.activityId, result)
         .then((Session newSession) => setState(() {
-              widget.updateParentState(newSession);
-              scaffoldMessenger.clearSnackBars();
+              PlayerService()
+                  .getPlayerById(newSession.playerId)
+                  .then((Player newPlayer) {
+                widget.updateParentState(newSession, newPlayer);
+                scaffoldMessenger.clearSnackBars();
+              });
             }));
   }
 }
