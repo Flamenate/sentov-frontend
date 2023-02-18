@@ -14,7 +14,7 @@ class RouteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double buttonWidth = MediaQuery.of(context).size.width / 2.5;
+    double buttonWidth = MediaQuery.of(context).size.width / 3.1;
     return ElevatedButton(
         onPressed: () => {context.go(route)},
         style: ElevatedButton.styleFrom(
@@ -30,14 +30,14 @@ class RouteButton extends StatelessWidget {
           children: [
             Icon(
               iconData,
-              size: 60,
+              size: 50,
               color: Color.fromARGB(255, 253, 192, 107),
             ),
             Text(text,
                 style: TextStyle(
                     color: Color.fromARGB(255, 253, 192, 107),
                     fontFamily: "Unbounded",
-                    fontSize: 17.45))
+                    fontSize: 15))
           ],
         ));
   }

@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -34,6 +34,10 @@ class HomeScreen extends StatelessWidget {
                     route: "/session",
                     iconData: Icons.gamepad_rounded,
                     text: "Register Game Session"),
+                RouteButton(
+                    route: "/quests",
+                    iconData: Icons.bookmarks_sharp,
+                    text: "Register Quest Completion"),
               ],
             ),
           ),
@@ -41,13 +45,13 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               RouteButton(
-                  route: "/profile",
-                  iconData: Icons.person,
-                  text: "View Player Profile"),
-              RouteButton(
                   route: "/shop",
                   iconData: Icons.shop_2_rounded,
                   text: "Register Shop Purchase"),
+              RouteButton(
+                  route: "/profile",
+                  iconData: Icons.person,
+                  text: "View Player Profile"),
             ],
           ),
           Expanded(
