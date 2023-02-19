@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sento_staff/services/shop_log_service.dart';
 import 'package:sento_staff/widgets/player_id_form_field.dart';
 import 'package:sento_staff/widgets/submit_button.dart';
 import 'package:sento_staff/widgets/default_app_bar.dart';
@@ -41,8 +42,19 @@ class _ShopScreenState extends State<ShopScreen> {
                 SnackBar(content: Text("Your inputs are invalid.")),
               );
               _idFieldController.clear();
+              return;
             }
-            //TODO: POST to shop log
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Processing Request...")),
+            );
+            ShopLogService()
+                .postLog(int.parse(_idFieldController.text),
+                    _menuKey.currentState!.selectedItemId)
+                .then((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Purchase Submitted Successfully.")),
+              );
+            });
           })
         ]));
   }
