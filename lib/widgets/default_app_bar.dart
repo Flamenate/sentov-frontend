@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 AppBar defaultAppBar(BuildContext context, {required String title}) {
   return AppBar(
     leading: BackButton(
-        onPressed: () => context.go("/"),
+        onPressed: () => context.push("/"),
         color: Color.fromARGB(255, 253, 192, 107)),
     title: Text(title,
         style: TextStyle(

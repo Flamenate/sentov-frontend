@@ -22,7 +22,7 @@ class ActivitySelectionScreen extends StatelessWidget {
             child: ActivityMenu(key: menuKey, type: type)),
         SubmitButton(onPressed: (() {
           final int id = menuKey.currentState?.selectedActivityId as int;
-          context.go(
+          context.push(
               "$route/$id?title=${menuKey.currentState?.activities[id].title}");
         }))
       ],

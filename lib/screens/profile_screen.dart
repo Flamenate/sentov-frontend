@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (!_formKey.currentState!.validate()) {
               return;
             }
-            context.go("/profile/${_idController.text}");
+            context.push("/profile/${_idController.text}");
           })
         ],
       );
