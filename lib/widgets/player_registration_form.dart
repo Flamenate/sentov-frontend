@@ -19,7 +19,6 @@ class PlayerRegistrationFormState extends State<PlayerRegistrationForm> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Row(
         children: [
           Expanded(

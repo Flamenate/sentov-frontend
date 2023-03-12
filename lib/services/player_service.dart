@@ -24,16 +24,17 @@ class PlayerService {
 
   Future<Player> getPlayerById(int id) async {
     final http.Response response = await httpClient
-        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/player/$id"));
+        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/players/$id"));
     if (response.statusCode >= 400) return Player.placeholder();
     return Player.fromJson(jsonDecode(response.body));
   }
 
-  Future<Player> patchPlayerName(int id, String name) async {
-    final http.Response player = await httpClient.patch(
-        Uri.parse("${dotenv.env['BACKEND_URL']}/players/$id"),
-        body: jsonEncode({name: name}),
+  Future<Player> putPlayer(Player player) async {
+    final http.Response response = await httpClient.put(
+        Uri.parse("${dotenv.env['BACKEND_URL']}/players"),
+        body: player.toJson(),
         encoding: Encoding.getByName("UTF-8"));
-    return Player.fromJson(jsonDecode(player.body));
+    if (response.statusCode >= 400) return Player.placeholder();
+    return Player.fromJson(jsonDecode(response.body));
   }
 }

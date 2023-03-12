@@ -30,7 +30,6 @@ class GameSessionFormState extends State<GameSessionForm> {
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.5,
@@ -88,11 +87,13 @@ class GameSessionFormState extends State<GameSessionForm> {
 
   void _submitForm(BuildContext context, int result) {
     ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context);
+    final int playerId = int.parse(_controller.text);
+    _controller.clear();
     scaffoldMessenger.showSnackBar(
       const SnackBar(content: Text('Processing Session...')),
     );
     SessionService()
-        .postSession(int.parse(_controller.text), widget.gameId, result)
+        .postSession(playerId, widget.gameId, result)
         .then((Session newSession) => setState(() {
               PlayerService()
                   .getPlayerById(newSession.playerId)

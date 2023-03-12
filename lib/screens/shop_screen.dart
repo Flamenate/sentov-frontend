@@ -26,7 +26,6 @@ class _ShopScreenState extends State<ShopScreen> {
             width: MediaQuery.of(context).size.width / 1.5,
             child: Form(
                 key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: PlayerIdFormField(
                   controller: _idFieldController,
                 )),
@@ -54,6 +53,7 @@ class _ShopScreenState extends State<ShopScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Purchase Submitted Successfully.")),
               );
+              _idFieldController.clear();
             });
           })
         ]));

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:sento_staff/models/player.dart';
 import 'package:sento_staff/services/player_service.dart';
 import 'package:sento_staff/widgets/submit_button.dart';
 
@@ -31,22 +34,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 nameController: nameFieldController),
           ),
           SubmitButton(onPressed: () {
-            idFieldController.clear();
-            nameFieldController.clear();
             if (!key.currentState!.formKey.currentState!.validate()) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Your inputs are invalid.")),
               );
+              idFieldController.clear();
+              nameFieldController.clear();
               return;
             }
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Updating...")),
+            );
             PlayerService()
-                .patchPlayerName(
-                    int.parse(idFieldController.text), nameFieldController.text)
-                .then((value) => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(
-                              "Player (${value.id})'s name was updated to ${value.name}.")),
-                    ));
+                .getPlayerById(int.parse(idFieldController.text))
+                .then(((Player value) {
+              final playerJson = jsonDecode(value.toJson());
+              playerJson["name"] = nameFieldController.text;
+              final player = Player.fromJson(playerJson);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              PlayerService().putPlayer(player).then((Player value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(
+                          "Player (${value.id})'s name was updated to ${value.name}.")),
+                );
+              });
+            }));
+            idFieldController.clear();
+            nameFieldController.clear();
           })
         ]));
   }

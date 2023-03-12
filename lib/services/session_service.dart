@@ -16,19 +16,19 @@ class SessionService {
 
   Future<Session> getSessionById(int id) async {
     final http.Response session = await httpClient
-        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/session/$id"));
+        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/sessions/$id"));
     return Session.fromJson(jsonDecode(session.body));
   }
 
   Future<Session> postSession(int playerId, int activityId, int result) async {
-    final http.Response session =
-        await httpClient.post(Uri.parse("${dotenv.env['BACKEND_URL']}/session"),
-            body: json.encode({
-              "playerId": playerId,
-              "activityId": activityId,
-              "result": result,
-              "timestamp": DateTime.now().toUtc().toIso8601String()
-            }));
+    final http.Response session = await httpClient.post(
+        Uri.parse("${dotenv.env['BACKEND_URL']}/sessions"),
+        body: json.encode({
+          "playerId": playerId,
+          "activityId": activityId,
+          "result": result,
+          "timestamp": DateTime.now().toUtc().toIso8601String()
+        }));
     return Session.fromJson(jsonDecode(session.body));
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Player {
   final int id;
   final String name;
@@ -25,5 +27,10 @@ class Player {
   factory Player.placeholder() {
     return Player(
         id: -1, name: "Flen Ben Foulen", xp: -1000, level: -1, balance: -5000);
+  }
+
+  String toJson() {
+    return jsonEncode(
+        {"id": id, "name": name, "xp": xp, "level": level, "balance": balance});
   }
 }
