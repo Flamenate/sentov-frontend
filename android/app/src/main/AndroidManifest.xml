@@ -2,7 +2,7 @@
     package="com.example.sento_staff">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="sento_staff"
+        android:label="Sento Kaishi Staff"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
