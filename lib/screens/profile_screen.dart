@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -20,23 +22,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _idController = TextEditingController();
   final TextStyle _subtitleStyle = TextStyle(
       fontFamily: "Unbounded",
-      fontSize: 20.0,
+      fontSize: 22.0,
       color: Color.fromARGB(255, 90, 38, 107));
   final TextStyle _contentStyle =
-      TextStyle(fontSize: 18.0, color: Colors.black);
+      TextStyle(fontSize: 20.0, color: Colors.black);
   final TextStyle _subcontentStyle =
-      TextStyle(color: Colors.black54, fontSize: 13.0);
+      TextStyle(color: Colors.black54, fontSize: 15.0);
   Player _player = Player.placeholder();
+  List<String> _quests = ["No quests yet."];
 
   @override
   void initState() {
     super.initState();
     if (widget.id != null) {
-      PlayerService().getPlayerById(widget.id!).then(((player) {
+      PlayerService().getPlayerById(widget.id!).then((Player player) {
+        if (player.id == -1) {
+          return ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("No player was found with that id.")),
+          );
+        }
         setState(() {
           _player = player;
+          PlayerService().getAllQuests(player.id).then((List<String> quests) {
+            setState(() {
+              _quests = quests;
+            });
+          });
         });
-      }));
+      });
     }
   }
 
@@ -65,24 +78,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       );
     } else {
+      final xpLimit = nextLevel(_player.level + 1);
       body = Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
-              height: MediaQuery.of(context).size.height / 5,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Text(
-                        _player.name.isNotEmpty ? _player.name : "UNNAMED",
-                        style: TextStyle(
-                            fontFamily: "Unbounded",
-                            fontSize: 25.0,
-                            color: Color.fromARGB(255, 90, 38, 107))),
-                  ),
-                  Text("ID: ${_player.id}", style: _subcontentStyle),
-                ],
-              )),
+          Column(
+            children: [
+              Center(
+                child: Text(_player.name.isNotEmpty ? _player.name : "UNNAMED",
+                    style: TextStyle(
+                        fontFamily: "Unbounded",
+                        fontSize: 32.0,
+                        color: Color.fromARGB(255, 90, 38, 107))),
+              ),
+              Text("ID: ${_player.id}", style: _subcontentStyle),
+            ],
+          ),
           Column(
             children: [
               Text("Level:", style: _subtitleStyle),
@@ -94,27 +105,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 1.25,
                       child: LinearProgressIndicator(
-                        value: 0.4,
+                        value: _player.xp / xpLimit,
                         valueColor:
                             AlwaysStoppedAnimation<Color>(Colors.red.shade900),
                         backgroundColor: Color.fromARGB(255, 90, 38, 107),
                       ),
                     ),
-                    Text("XP: ${_player.xp} / 70,000", style: _subcontentStyle)
+                    Text("XP: ${_player.xp} / $xpLimit",
+                        style: _subcontentStyle)
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 8,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Balance:", style: _subtitleStyle),
+              Text(
+                  "金 ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(_player.balance)}",
+                  style: _contentStyle),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Last Played Quest", style: _subtitleStyle),
+              Text(
+                _player.lastQuest ?? "Has not played any quests yet.",
+                style: _contentStyle,
+              ),
+              Text("Last Played Game", style: _subtitleStyle),
+              Text(
+                _player.lastGame ?? "Has not played any games yet.",
+                style: _contentStyle,
+              ),
+            ],
+          ),
+          Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Balance:", style: _subtitleStyle),
                 Text(
-                    "\$${NumberFormat.currency(symbol: '', decimalDigits: 0).format(_player.balance)}",
-                    style: _contentStyle),
+                  "Played Quests",
+                  style: _subtitleStyle,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: _quests.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                          leading: Icon(Icons.balance_outlined),
+                          title: Text(_quests[index]));
+                    },
+                  ),
+                )
               ],
             ),
           ),
@@ -124,5 +170,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         appBar: defaultAppBar(context, title: "View Player Profile"),
         body: body);
+  }
+
+  nextLevel(currentLevel) {
+    const baseXP = 1000;
+    const exponent = 1.5;
+
+    return (baseXP * (pow(currentLevel, exponent))).floor();
   }
 }

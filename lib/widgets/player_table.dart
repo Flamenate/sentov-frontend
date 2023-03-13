@@ -43,7 +43,7 @@ class PlayerTable extends StatelessWidget {
             Center(child: Text(player.level.toString())),
             Center(
                 child: Text(
-                    "\$${NumberFormat.currency(symbol: '', decimalDigits: 0).format(player.balance)}"))
+                    "金 ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(player.balance)}"))
           ])
         ]);
   }

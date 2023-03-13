@@ -6,6 +6,8 @@ class Player {
   final int xp;
   final int level;
   final int balance;
+  final String? lastQuest;
+  final String? lastGame;
 
   const Player({
     required this.id,
@@ -13,6 +15,8 @@ class Player {
     required this.xp,
     required this.level,
     required this.balance,
+    this.lastQuest,
+    this.lastGame,
   });
 
   factory Player.fromJson(Map<String, dynamic> json) {
@@ -20,17 +24,26 @@ class Player {
         id: json["id"],
         name: json["name"],
         xp: json["xp"],
-        level: 6,
-        balance: json["balance"]);
+        level: json["level"],
+        balance: json["balance"],
+        lastQuest: json["lastPlayedQuest"],
+        lastGame: json["lastPlayedGame"]);
   }
 
   factory Player.placeholder() {
     return Player(
-        id: -1, name: "Flen Ben Foulen", xp: -1000, level: -1, balance: -5000);
+        id: -1, name: "Flen Ben Foulen", xp: -9999, level: -99, balance: -9999);
   }
 
   String toJson() {
-    return jsonEncode(
-        {"id": id, "name": name, "xp": xp, "level": level, "balance": balance});
+    return jsonEncode({
+      "id": id,
+      "name": name,
+      "xp": xp,
+      "level": level,
+      "balance": balance,
+      "lastQuest": lastQuest,
+      "lastGame": lastGame,
+    });
   }
 }
