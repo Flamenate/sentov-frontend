@@ -14,19 +14,21 @@ class Activity {
 
   factory Activity.fromJson(Map<String, dynamic> json) {
     return Activity(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        xpReward: json["xpReward"],
-        balanceReward: json["balanceReward"],);
+      id: json["id"],
+      title: json["title"],
+      description: json["description"],
+      xpReward: json["xpReward"],
+      balanceReward: json["balanceReward"],
+    );
   }
 
   factory Activity.placeholder() {
     return Activity(
-        id: -1,
-        title: "Select a game...",
-        description: "",
-        xpReward: -1,
-        balanceReward: -1,);
+      id: -1,
+      title: "Select...",
+      description: "",
+      xpReward: -1,
+      balanceReward: -1,
+    );
   }
 }
