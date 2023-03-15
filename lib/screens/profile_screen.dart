@@ -18,6 +18,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final double _padding = 8.0;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
   final TextStyle _subtitleStyle = TextStyle(
@@ -85,7 +87,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Column(
             children: [
               Center(
-                child: Text(_player.name.isNotEmpty ? _player.name : "UNNAMED",
+                child: Text(
+                    !_player.name.startsWith("None") ? _player.name : "UNNAMED",
                     style: TextStyle(
                         fontFamily: "Unbounded",
                         fontSize: 32.0,
@@ -94,74 +97,86 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text("ID: ${_player.id}", style: _subcontentStyle),
             ],
           ),
-          Column(
-            children: [
-              Text("Level:", style: _subtitleStyle),
-              Text(_player.level.toString(), style: _contentStyle),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.25,
-                      child: LinearProgressIndicator(
-                        value: _player.xp / xpLimit,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Colors.red.shade900),
-                        backgroundColor: Color.fromARGB(255, 90, 38, 107),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: _padding),
+            child: Column(
+              children: [
+                Text("Level:", style: _subtitleStyle),
+                Text(_player.level.toString(), style: _contentStyle),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.25,
+                        child: LinearProgressIndicator(
+                          value: _player.xp / xpLimit,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.red.shade900),
+                          backgroundColor: Color.fromARGB(255, 90, 38, 107),
+                        ),
                       ),
-                    ),
-                    Text("XP: ${_player.xp} / $xpLimit",
-                        style: _subcontentStyle)
-                  ],
+                      Text("XP: ${_player.xp} / $xpLimit",
+                          style: _subcontentStyle)
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Balance:", style: _subtitleStyle),
-              Text(
-                  "金 ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(_player.balance)}",
-                  style: _contentStyle),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Last Played Quest", style: _subtitleStyle),
-              Text(
-                _player.lastQuest ?? "Has not played any quests yet.",
-                style: _contentStyle,
-              ),
-              Text("Last Played Game", style: _subtitleStyle),
-              Text(
-                _player.lastGame ?? "Has not played any games yet.",
-                style: _contentStyle,
-              ),
-            ],
-          ),
-          Expanded(
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: _padding),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("Balance:", style: _subtitleStyle),
                 Text(
-                  "Played Quests",
-                  style: _subtitleStyle,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: _quests.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                          leading: Icon(Icons.balance_outlined),
-                          title: Text(_quests[index]));
-                    },
-                  ),
-                )
+                    "金 ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(_player.balance)}",
+                    style: _contentStyle),
               ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: _padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Last Played Quest", style: _subtitleStyle),
+                Text(
+                  _player.lastQuest ?? "Has not played any quests yet.",
+                  style: _contentStyle,
+                ),
+                Text("Last Won Game", style: _subtitleStyle),
+                Text(
+                  _player.lastGame ?? "Has not played any games yet.",
+                  style: _contentStyle,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: _padding),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Played Quests",
+                    style: _subtitleStyle,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: _quests.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                            leading: Icon(Icons.balance_outlined),
+                            title: Text(_quests[index]));
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],
