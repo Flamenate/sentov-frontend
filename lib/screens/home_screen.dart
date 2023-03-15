@@ -52,6 +52,10 @@ class HomeScreen extends StatelessWidget {
                   route: "/profile",
                   iconData: Icons.person,
                   text: "View Player Profile"),
+              RouteButton(
+                  route: "/leaderboard",
+                  iconData: Icons.format_list_numbered_rounded,
+                  text: "Leaderboard")
             ],
           ),
           Expanded(

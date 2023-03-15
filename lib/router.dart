@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sento_staff/screens/home_screen.dart';
+import 'package:sento_staff/screens/leaderboard_screen.dart';
 import 'package:sento_staff/screens/profile_screen.dart';
 import 'package:sento_staff/screens/quest_screen.dart';
 import 'package:sento_staff/screens/register_screen.dart';
@@ -30,6 +31,10 @@ final router = GoRouter(
     GoRoute(
       path: '/shop',
       builder: (context, state) => ShopScreen(),
+    ),
+    GoRoute(
+      path: '/leaderboard',
+      builder: (context, state) => LeaderboardScreen(),
     ),
     GoRoute(
         path: '/profile',

@@ -14,9 +14,9 @@ class PlayerService {
 
   PlayerService._internal();
 
-  Future<List<Player>> getAllPlayers(String? sortBy, int offset) async {
-    final http.Response players = await httpClient
-        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/players?sort_by=$sortBy"));
+  Future<List<Player>> getAllPlayers(String sortBy, int page) async {
+    final http.Response players = await httpClient.get(Uri.parse(
+        "${dotenv.env['BACKEND_URL']}/players?orderby=$sortBy&page=$page"));
     return jsonDecode(players.body)
         .map<Player>((playerData) => Player.fromJson(playerData))
         .toList();
