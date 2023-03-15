@@ -46,4 +46,13 @@ class PlayerService {
         .map<String>((questData) => questData["title"] as String)
         .toList();
   }
+
+  Future<List<String>> getAllItems(int id) async {
+    final http.Response response = await httpClient
+        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/players/$id/getitems"));
+    if (response.statusCode >= 400) return ["No items bought."];
+    return jsonDecode(response.body)
+        .map<String>((itemData) => itemData["name"] as String)
+        .toList();
+  }
 }

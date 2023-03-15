@@ -32,6 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       TextStyle(color: Colors.black54, fontSize: 15.0);
   Player _player = Player.placeholder();
   List<String> _quests = ["No quests yet."];
+  List<String> _items = ["No items yet."];
 
   @override
   void initState() {
@@ -45,11 +46,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
         setState(() {
           _player = player;
-          PlayerService().getAllQuests(player.id).then((List<String> quests) {
-            setState(() {
-              _quests = quests;
-            });
-          });
+        });
+        PlayerService().getAllQuests(player.id).then((List<String> quests) {
+          PlayerService().getAllItems(player.id).then(
+            (List<String> items) {
+              setState(() {
+                _quests = quests;
+                _items = items;
+              });
+            },
+          );
         });
       });
     }
@@ -153,6 +159,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
+          ),
+          Expanded(
+            child: Padding(
+                padding: EdgeInsets.symmetric(vertical: _padding),
+                child: Column(
+                  children: [
+                    Text("Purchased Items", style: _subtitleStyle),
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: _items.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                              leading: Icon(Icons.shopping_bag_rounded),
+                              title: Text(_items[index]));
+                        },
+                      ),
+                    )
+                  ],
+                )),
           ),
           Expanded(
             child: Padding(

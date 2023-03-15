@@ -31,7 +31,6 @@ class QuestSessionFormState extends State<QuestSessionForm> {
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           Center(
             child: SizedBox(
@@ -56,13 +55,20 @@ class QuestSessionFormState extends State<QuestSessionForm> {
     );
     SessionService()
         .postSession(int.parse(_controller.text), widget.questId, 1)
-        .then((Session newSession) => setState(() {
-              PlayerService()
-                  .getPlayerById(newSession.playerId)
-                  .then((Player newPlayer) {
-                widget.updateParentState(newSession, newPlayer);
-                scaffoldMessenger.clearSnackBars();
-              });
-            }));
+        .then((Session newSession) {
+      if (newSession.id == -1) {
+        scaffoldMessenger.clearSnackBars();
+        scaffoldMessenger.showSnackBar(
+            const SnackBar(content: Text("Player already played that quest!")));
+        return;
+      }
+      PlayerService()
+          .getPlayerById(newSession.playerId)
+          .then((Player newPlayer) {
+        widget.updateParentState(newSession, newPlayer);
+        scaffoldMessenger.clearSnackBars();
+      });
+    });
+    _controller.clear();
   }
 }

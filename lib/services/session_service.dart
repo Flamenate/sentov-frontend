@@ -14,12 +14,6 @@ class SessionService {
 
   SessionService._internal();
 
-  Future<Session> getSessionById(int id) async {
-    final http.Response session = await httpClient
-        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/sessions/$id"));
-    return Session.fromJson(jsonDecode(session.body));
-  }
-
   Future<Session> postSession(int playerId, int activityId, int result) async {
     final http.Response session = await httpClient.post(
         Uri.parse("${dotenv.env['BACKEND_URL']}/sessions"),
@@ -29,6 +23,10 @@ class SessionService {
           "result": result,
           "timestamp": DateTime.now().toUtc().toIso8601String()
         }));
-    return Session.fromJson(jsonDecode(session.body));
+    try {
+      return Session.fromJson(jsonDecode(session.body));
+    } catch (e) {
+      return Session.placeholder();
+    }
   }
 }

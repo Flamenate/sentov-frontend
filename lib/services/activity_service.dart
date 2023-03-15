@@ -21,10 +21,4 @@ class ActivityService {
         .map<Activity>((activityData) => Activity.fromJson(activityData))
         .toList();
   }
-
-  Future<Activity> getActivityById(int id) async {
-    final http.Response activity = await httpClient
-        .get(Uri.parse("${dotenv.env['BACKEND_URL']}/activities/$id"));
-    return Activity.fromJson(jsonDecode(activity.body));
-  }
 }

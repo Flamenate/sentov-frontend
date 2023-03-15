@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sento_staff/models/item.dart';
 import 'package:sento_staff/services/item_service.dart';
 
@@ -40,8 +41,11 @@ class ItemMenuState extends State<ItemMenu> {
         underline: SizedBox(),
         isExpanded: true,
         items: items
-            .map(((item) =>
-                DropdownMenuItem(value: item.id, child: Text(item.name))))
+            .map(((item) => DropdownMenuItem(
+                value: item.id,
+                child: Text(item.id != -1
+                    ? "${item.name} — 金 ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(item.price)} — ${item.quantity}x"
+                    : item.name))))
             .toList(),
         onChanged: (int? value) {
           setState(() {
