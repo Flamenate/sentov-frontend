@@ -14,7 +14,7 @@ class ActivityService {
 
   ActivityService._internal();
 
-  Future<List<Activity>> getAllByType(String type) async {
+  Future<List<Activity>> getAllByType(int type) async {
     final http.Response response = await httpClient
         .get(Uri.parse("${dotenv.env['BACKEND_URL']}/activities?type=$type"));
     return jsonDecode(response.body)

@@ -4,7 +4,7 @@ class Player {
   final int id;
   final String name;
   final int xp;
-  final int level;
+  final int? level;
   final int balance;
   final String? lastQuest;
   final String? lastGame;
@@ -13,8 +13,8 @@ class Player {
     required this.id,
     required this.name,
     required this.xp,
-    required this.level,
     required this.balance,
+    this.level,
     this.lastQuest,
     this.lastGame,
   });
@@ -40,10 +40,7 @@ class Player {
       "id": id,
       "name": name,
       "xp": xp,
-      "level": level,
       "balance": balance,
-      "lastQuest": lastQuest,
-      "lastGame": lastGame,
     });
   }
 }

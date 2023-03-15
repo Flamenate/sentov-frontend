@@ -46,18 +46,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Updating...")),
             );
+            final name = nameFieldController.text;
             PlayerService()
                 .getPlayerById(int.parse(idFieldController.text))
-                .then(((Player value) {
-              final playerJson = jsonDecode(value.toJson());
-              playerJson["name"] = nameFieldController.text;
-              final player = Player.fromJson(playerJson);
+                .then(((Player gottenPlayer) {
+              final gottenPlayerJson = jsonDecode(gottenPlayer.toJson());
+              gottenPlayerJson["name"] = name;
+              final updatedPlayer = Player.fromJson(gottenPlayerJson);
               ScaffoldMessenger.of(context).clearSnackBars();
-              PlayerService().putPlayer(player).then((Player value) {
+              PlayerService().putPlayer(updatedPlayer).then((Player putPlayer) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       content: Text(
-                          "Player (${value.id})'s name was updated to ${value.name}.")),
+                          "Player (${putPlayer.id})'s name was updated to ${putPlayer.name}.")),
                 );
               });
             }));

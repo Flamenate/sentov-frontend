@@ -5,7 +5,7 @@ import 'package:sento_staff/services/activity_service.dart';
 class ActivityMenu extends StatefulWidget {
   const ActivityMenu({super.key, required this.type});
 
-  final String type;
+  final int type;
 
   @override
   State<ActivityMenu> createState() => ActivityMenuState();
@@ -13,9 +13,9 @@ class ActivityMenu extends StatefulWidget {
 
 class ActivityMenuState extends State<ActivityMenu> {
   int selectedActivityId = -1;
-  List<Activity> activities = [
-    Activity.placeholder(),
-  ];
+  Map<int, Activity> activities = {
+    -1: Activity.placeholder(),
+  };
 
   @override
   void initState() {
@@ -23,7 +23,9 @@ class ActivityMenuState extends State<ActivityMenu> {
     ActivityService().getAllByType(widget.type).then(
       (retrievedActivities) {
         setState(() {
-          activities.addAll(retrievedActivities);
+          for (Activity activity in retrievedActivities) {
+            activities[activity.id] = activity;
+          }
         });
       },
     );
@@ -43,7 +45,7 @@ class ActivityMenuState extends State<ActivityMenu> {
           iconSize: 25.0,
           underline: SizedBox(),
           isExpanded: true,
-          items: activities
+          items: activities.values
               .map(((activity) => DropdownMenuItem(
                   value: activity.id, child: Text(activity.title))))
               .toList(),

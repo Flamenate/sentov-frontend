@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       );
     } else {
-      final xpLimit = nextLevel(_player.level + 1);
+      final xpLimit = nextLevel(_player.level! + 1);
       body = Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

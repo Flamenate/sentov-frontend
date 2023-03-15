@@ -9,7 +9,7 @@ class ActivitySelectionScreen extends StatelessWidget {
   const ActivitySelectionScreen(
       {super.key, required this.type, required this.route});
 
-  final String type;
+  final int type;
   final String route;
 
   @override
@@ -22,8 +22,9 @@ class ActivitySelectionScreen extends StatelessWidget {
             child: ActivityMenu(key: menuKey, type: type)),
         SubmitButton(onPressed: (() {
           final int id = menuKey.currentState?.selectedActivityId as int;
+          if (id < 0) return;
           context.push(
-              "$route/$id?title=${menuKey.currentState?.activities[id].title}");
+              "$route/$id?title=${menuKey.currentState?.activities[id]!.title}");
         }))
       ],
     );

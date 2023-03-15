@@ -12,8 +12,13 @@ class ShopLogService {
 
   ShopLogService._internal();
 
-  Future<void> postLog(int playerId, int itemId) async {
-    await httpClient.post(Uri.parse("${dotenv.env['BACKEND_URL']}/shoplogs"),
+  Future<String> postLog(int playerId, int itemId) async {
+    final response = await httpClient.post(
+        Uri.parse("${dotenv.env['BACKEND_URL']}/shoplogs"),
         body: json.encode({"playerId": playerId, "itemId": itemId}));
+    if (response.statusCode >= 400) {
+      return response.body;
+    }
+    return "";
   }
 }

@@ -49,9 +49,13 @@ class _ShopScreenState extends State<ShopScreen> {
             ShopLogService()
                 .postLog(int.parse(_idFieldController.text),
                     _menuKey.currentState!.selectedItemId)
-                .then((_) {
+                .then((String response) {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Purchase Submitted Successfully.")),
+                SnackBar(
+                    content: Text(response.isNotEmpty
+                        ? response
+                        : "Purchase Submitted Successfully.")),
               );
               _idFieldController.clear();
             });

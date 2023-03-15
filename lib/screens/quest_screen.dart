@@ -24,7 +24,7 @@ class QuestScreenState extends State<QuestScreen> {
   Widget build(BuildContext context) {
     Widget body;
     if (widget.questId == null) {
-      body = ActivitySelectionScreen(type: "quest", route: "/quest");
+      body = ActivitySelectionScreen(type: 20, route: "/quest");
     } else {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.start,

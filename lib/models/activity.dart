@@ -4,17 +4,13 @@ class Activity {
   final String description;
   final int xpReward;
   final int balanceReward;
-  final int replayLimit;
-  final int cooldownInMinutes;
 
   const Activity(
       {required this.id,
       required this.title,
       required this.description,
       required this.xpReward,
-      required this.balanceReward,
-      required this.replayLimit,
-      required this.cooldownInMinutes});
+      required this.balanceReward});
 
   factory Activity.fromJson(Map<String, dynamic> json) {
     return Activity(
@@ -22,9 +18,7 @@ class Activity {
         title: json["title"],
         description: json["description"],
         xpReward: json["xpReward"],
-        balanceReward: json["balanceReward"],
-        replayLimit: json["replayLimit"],
-        cooldownInMinutes: json["cooldownInMinutes"]);
+        balanceReward: json["balanceReward"],);
   }
 
   factory Activity.placeholder() {
@@ -33,8 +27,6 @@ class Activity {
         title: "Select a game...",
         description: "",
         xpReward: -1,
-        balanceReward: -1,
-        replayLimit: -1,
-        cooldownInMinutes: -1);
+        balanceReward: -1,);
   }
 }

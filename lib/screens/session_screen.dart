@@ -24,7 +24,7 @@ class SessionScreenState extends State<SessionScreen> {
   Widget build(BuildContext context) {
     Widget body;
     if (widget.gameId == null) {
-      body = ActivitySelectionScreen(type: "game", route: "/session");
+      body = ActivitySelectionScreen(type: 10, route: "/session");
     } else {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
