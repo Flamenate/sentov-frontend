@@ -162,26 +162,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Expanded(
             child: Padding(
-                padding: EdgeInsets.symmetric(vertical: _padding),
-                child: Column(
-                  children: [
-                    Text("Purchased Items", style: _subtitleStyle),
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: _items.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                              leading: Icon(Icons.shopping_bag_rounded),
-                              title: Text(_items[index]));
-                        },
-                      ),
-                    )
-                  ],
-                )),
-          ),
-          Expanded(
-            child: Padding(
               padding: EdgeInsets.symmetric(vertical: _padding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -204,6 +184,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
+          ),
+          Expanded(
+            child: Padding(
+                padding: EdgeInsets.symmetric(vertical: _padding),
+                child: Column(
+                  children: [
+                    Text("Purchased Items", style: _subtitleStyle),
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: _items.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                              leading: Icon(Icons.shopping_bag_rounded),
+                              title: Text(_items[index]));
+                        },
+                      ),
+                    )
+                  ],
+                )),
           ),
         ],
       );
