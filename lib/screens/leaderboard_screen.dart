@@ -38,6 +38,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       (List<Player> players) {
         setState(() {
           _players = players;
+          _sortBy = _sortBy;
         });
       },
     );
@@ -57,18 +58,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                     foregroundColor: Colors.red,
                   ),
                   onPressed: () {
-                    if (_sortBy != "balance") {
-                      PlayerService().getAllPlayers(_sortBy, _page).then(
-                        (List<Player> players) {
-                          setState(() {
-                            _players = players;
-                            _sortBy = "balance";
-                          });
-                        },
-                      );
-                    }
+                    if (_sortBy == "xp") return;
+                    PlayerService().getAllPlayers("xp", _page).then(
+                      (List<Player> players) {
+                        setState(() {
+                          _players = players;
+                          _sortBy = "xp";
+                        });
+                      },
+                    );
                   },
-                  child: Text("XP",
+                  child: const Text("XP",
                       style: TextStyle(
                           color: Color.fromARGB(255, 253, 192, 107),
                           fontFamily: "Unbounded"))),
@@ -80,16 +80,15 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                       foregroundColor: Colors.red,
                     ),
                     onPressed: () {
-                      if (_sortBy != "xp") {
-                        PlayerService().getAllPlayers(_sortBy, _page).then(
-                          (List<Player> players) {
-                            setState(() {
-                              _players = players;
-                              _sortBy = "xp";
-                            });
-                          },
-                        );
-                      }
+                      if (_sortBy == "balance") return;
+                      PlayerService().getAllPlayers("balance", _page).then(
+                        (List<Player> players) {
+                          setState(() {
+                            _players = players;
+                            _sortBy = "balance";
+                          });
+                        },
+                      );
                     },
                     child: Text("Kin",
                         style: TextStyle(
